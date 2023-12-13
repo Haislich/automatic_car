@@ -26,16 +26,15 @@ def play(env, model):
         done = terminated or truncated
 
 
-def main():
-    env = gym.make(ENV_NAME, **ENV_ARGUMENTS)
-    print(type(env))
-    print("Environment:", env_name)
-    print("Action space:", env.action_space)
-    print("Observation space:", env.observation_space)
+# def main():
+#     env = gym.make(ENV_NAME, **ENV_ARGUMENTS)
+#     print(type(env))
+#     print("Environment:", ENV_NAME)
+#     print("Action space:", env.action_space)
+#     print("Observation space:", env.observation_space)
+#     model = ...  # your trained model
+#     play(env, model)
 
 
-main()
+# main()
 # # your trained
-# model = ...  # your trained model
-
-# play(env, model)
