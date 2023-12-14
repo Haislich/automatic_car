@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "automatic-car"
+name = "automatic_car"
 version = "0.1.0"
 description = "This is my solution for the second homework assignment in the Machine Learning course at MsC of Artificial Intelligence and Robotics of La Sapienza University of Rome. The goal is to develop two CNN models that enable accurate gameplay for the car."
 authors = ["José Manuel <josedlv936@gmail.com>"]
@@ -11,16 +11,17 @@ license = "MIT"
 python = "^3.10"
 gymnasium = {extras = ["box2d"], version = "^0.29.1"}
 matplotlib = "^3.8.2"
-torch = "^2.1.1"
 numpy = "^1.26.2"
-pyglet = "^2.0.10"
-pynput = "^1.7.6"
-keyboard = "^0.13.5"
+torch = "^2.1.1"
 
+
+[tool.poetry.group.dev.dependencies]
+matplotlib = "^3.8.2"
+ruff = "^0.1.8"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-automatic_car_cli = 'automatic_car.__main__:main'
+automatic_car_cli2 = 'automatic_car.__main__:main'
