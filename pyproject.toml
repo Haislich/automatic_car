@@ -13,6 +13,11 @@ gymnasium = {extras = ["box2d"], version = "^0.29.1"}
 matplotlib = "^3.8.2"
 numpy = "^1.26.2"
 torch = "^2.1.1"
+pandas = "^2.1.4"
+scikit-learn = "^1.3.2"
+ipykernel = "^6.28.0"
+torchvision = "^0.16.2"
+
 
 
 [tool.poetry.group.dev.dependencies]
@@ -24,4 +29,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-automatic_car_cli2 = 'automatic_car.__main__:main'
+automatic_car_cli = 'automatic_car.__main__:main'
