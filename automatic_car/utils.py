@@ -9,7 +9,7 @@ def train(
     loss_fn: nn.Module,
     optimizer: torch.optim.Optimizer,
     device: str = "cpu",
-):
+) -> float:
     # Set the training mode for the model
     model.train()
 
@@ -27,7 +27,9 @@ def train(
         optimizer.step()
 
     train_loss /= len(data_loader)
+
     print(f"Train loss: {train_loss}")
+    return train_loss
 
 
 def test(
@@ -35,7 +37,7 @@ def test(
     data_loader: DataLoader,
     loss_fn: nn.Module,
     device: str = "cpu",
-):
+) -> float:
     test_loss = 0
     model.eval()
     with torch.inference_mode():
@@ -46,3 +48,4 @@ def test(
         # Test loss per batch
         test_loss /= len(data_loader)
         print(f"Test loss: {test_loss}")
+        return test_loss
