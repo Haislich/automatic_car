@@ -4,9 +4,13 @@ from pathlib import Path
 from torch import Tensor
 from torchvision.io import read_image
 from torch.utils.data import Dataset
+import torch
 
 
 class FramesDataset(Dataset):
+    __num_channels = 3
+    __num_classes = 5
+
     def __init__(self, dataset_type: str) -> None:
         path = Path(sys.path[0], "dataset", dataset_type)
         if not path.is_dir():
@@ -26,7 +30,10 @@ class FramesDataset(Dataset):
     def __getitem__(self, index) -> tuple[Tensor, int]:
         image = read_image(self.images[index])
         label = self.labels[index]
-        return image, label
+        return image.to(torch.float), label
 
+    def get_num_channels(self):
+        return self.__num_channels
 
-# FramesDataset("train")
+    def get_num_classes(self):
+        return self.__num_classes

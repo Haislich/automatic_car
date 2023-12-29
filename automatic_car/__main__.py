@@ -47,6 +47,6 @@ def main():
 
 if __name__ == "__main__":
     # main()
-    # import automatic_car.frame_dataset
+    import automatic_car.frame_dataset
 
     ...
