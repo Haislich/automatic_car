@@ -33,7 +33,7 @@ def train(
 def test(
     model: nn.Module,
     data_loader: DataLoader,
-    loss_fn: nn.CrossEntropyLoss,
+    loss_fn: nn.Module,
     device: str = "cpu",
 ) -> float:
     test_loss = 0
