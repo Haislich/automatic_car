@@ -1,4 +1,7 @@
 <!-- jupyter nbconvert --to html --no-input homework1.ipynb -->
+# How to use it
+
+Use `poetry install` to install the necessary dependencies and use `python -m automatic_car <modelname>`, if you just want to play use `python -m automatic_car` and move around using the arrow keys.
 
 # Introduction
 
