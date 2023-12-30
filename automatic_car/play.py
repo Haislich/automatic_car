@@ -1,12 +1,37 @@
 import pygame
-import gymnasium as gym
 
 # Initialize action
 action = 0
 quit = False
+SEED = 2000
 
 
-def play_interactive(env, render_mode="human"):
+def play_automatic(env, model):
+    def __register_input():
+        global quit
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit = True
+
+    current_state, _ = env.reset(seed=SEED)
+
+    # drop initial frames
+
+    for _ in range(50):
+        current_state, _, _, _, _ = env.step(0)
+
+    done = False
+    while not done:
+        p = model.predict(current_state)  # adapt to your model
+        print(p)
+        action = p  # np.argmax(p)  # adapt to your model
+        current_state, _, terminated, truncated, _ = env.step(action)
+        __register_input()
+        done = terminated or truncated or quit
+    env.close()
+
+
+def play_interactive(env):
     def __register_input():
         global quit, action
 
@@ -29,25 +54,13 @@ def play_interactive(env, render_mode="human"):
             if event.type == pygame.QUIT:
                 quit = True
 
-    seed = 2000
-    env.reset(seed=seed)
-    # drop initial frames
-    action0 = 0
+    env.reset(seed=SEED)
+
     for _ in range(50):
-        env.step(action0)
-    while not quit:
-        if render_mode == "human":
-            __register_input()
+        env.step(0)
+    done = False
+    while not done:
+        __register_input()
         _, _, terminated, truncated, _ = env.step(action)
+        done = terminated or truncated or quit
     env.close()
-
-
-if __name__ == "__main__":
-    ENV_NAME = "CarRacing-v2"
-    ENV_ARGUMENTS = {
-        "domain_randomize": False,
-        "continuous": False,
-        "render_mode": "human",
-    }
-    env = gym.make(ENV_NAME, **ENV_ARGUMENTS)
-    play_interactive(env)

@@ -2,6 +2,9 @@ import torch
 from torch import nn
 from pathlib import Path
 import sys
+import numpy as np
+
+# from time import sleep
 
 
 class Model1(nn.Module):
@@ -48,6 +51,16 @@ class Model1(nn.Module):
     def info(self, info: str):
         path = Path(sys.path[0], "models", "model1_info")
         return path.joinpath(info)
+
+    def predict(self, frame) -> int:
+        frame = torch.tensor(frame, dtype=torch.float32).permute(2, 0, 1)
+        frame = frame.unsqueeze(0)
+        self.eval()
+        prediction = 0
+        with torch.inference_mode():
+            softmax = nn.Softmax(dim=1)
+            prediction = np.argmax(softmax(self(frame))).item()
+        return prediction
 
 
 class Model2(nn.Module):
@@ -118,3 +131,12 @@ class Model2(nn.Module):
         x = self.cnn_layer3(x)
         x = self.cnn_layer4(x)
         return self.linear_layer(x)
+
+    def predict(self, frame) -> int:
+        frame = torch.tensor(frame, dtype=torch.float32).permute(2, 0, 1)
+        frame = frame.unsqueeze(0)
+        self.eval()
+        with torch.inference_mode():
+            softmax = nn.Softmax(dim=1)
+            prediction = np.argmax(softmax(self(frame))).item()
+        return prediction
